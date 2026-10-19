@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b24">
+<title>ATOSH - Mon application</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6f4;color:#18352b}
+header{background:#102b24;color:white;padding:26px 20px 30px;border-radius:0 0 25px 25px}
+.logo{font-size:27px;font-weight:800;letter-spacing:2px}
+header p{color:#d3e5dc;margin-bottom:0}
+main{padding:20px;max-width:600px;margin:auto;padding-bottom:90px}
+h2{font-size:21px}
+.welcome{background:white;padding:20px;border-radius:18px;margin-top:20px;box-shadow:0 3px 14px #0000000a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border:0;background:white;border-radius:16px;padding:18px 12px;text-align:left;color:#18352b;min-height:115px;box-shadow:0 3px 14px #00000008;font-size:15px}
+.tile span{display:block;font-size:27px;margin-bottom:12px}
+.tile b{display:block;margin-bottom:5px}
+.tile small{color:#718078}
+button{cursor:pointer}
+.primary{background:#146c4a;color:white;border:0;border-radius:12px;padding:13px 18px;font-weight:bold}
+nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px 4px max(12px,env(safe-area-inset-bottom));box-shadow:0 -3px 15px #0000000b}
+nav button{border:0;background:transparent;color:#66766e;font-size:12px;padding:5px}
+nav button span{display:block;font-size:21px;margin-bottom:4px}
+nav button.active{color:#146c4a;font-weight:bold}
+.panel{background:white;padding:18px;border-radius:16px;margin:12px 0}
+input{width:100%;padding:13px;border:1px solid #ccd8d0;border-radius:10px;margin:8px 0 15px;font-size:16px}
+footer{text-align:center;color:#718078;font-size:12px;padding:20px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">✦ ATOSH</div>
+  <p>Bienvenue dans ton espace.</p>
+</header>
+
+<main id="app">
+  <section id="home">
+    <div class="welcome">
+      <h2>Bonjour ! 👋</h2>
+      <p>Bienvenue sur ATOSH, ton espace numérique.</p>
+      <button class="primary" onclick="showPage('features')">
+        Découvrir les fonctionnalités
+      </button>
+    </div>
+    <h2>Mon espace</h2>
+    <div class="grid">
+      <button class="tile" onclick="showPage('features')">
+        <span>🧩</span><b>Fonctionnalités</b><small>Découvrir les outils</small>
+      </button>
+      <button class="tile" onclick="showPage('profile')">
+        <span>👤</span><b>Mon profil</b><small>Mes informations</small>
+      </button>
+      <button class="tile" onclick="showPage('about')">
+        <span>ℹ️</span><b>À propos</b><small>Découvrir ATOSH</small>
+      </button>
+      <button class="tile" onclick="showPage('help')">
+        <span>💬</span><b>Aide</b><small>Nous contacter bientôt</small>
+      </button>
+    </div>
+  </section>
+
+  <section id="features" hidden>
+    <h2>Mes fonctionnalités</h2>
+    <div class="panel">📌 <b>Mon espace personnel</b><p>Une place pour tes informations.</p></div>
+    <div class="panel">🗂️ <b>Mes outils</b><p>De nouveaux outils pourront être ajoutés.</p></div>
+    <div class="panel">🔔 <b>Notifications</b><p>Les alertes seront ajoutées dans une prochaine version.</p></div>
+    <p>Cette première version est une base de départ.</p>
+  </section>
+
+  <section id="profile" hidden>
+    <h2>Mon profil</h2>
+    <div class="panel">
+      <label for="username">Ton prénom ou pseudo</label>
+      <input id="username" placeholder="Écris ton prénom">
+      <button class="primary" onclick="saveProfile()">Enregistrer</button>
+      <p id="profileMessage" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="about" hidden>
+    <h2>À propos d'ATOSH</h2>
+    <div class="panel">
+      <p><b>ATOSH</b> est un projet d'application mobile en développement.</p>
+      <p>Cette première version pose les bases de son interface.</p>
+      <p>Version 1.0 — prototype.</p>
+    </div>
+  </section>
+
+  <section id="help" hidden>
+    <h2>Aide</h2>
+    <div class="panel">
+      <p>Bienvenue dans l'espace d'aide d'ATOSH.</p>
+      <p>Les moyens de contact pourront être ajoutés lorsque tu auras défini ton projet.</p>
+    </div>
+  </section>
+</main>
+
+<nav>
+  <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Accueil</button>
+  <button data-page="features" onclick="showPage('features')"><span>▦</span>Outils</button>
+  <button data-page="profile" onclick="showPage('profile')"><span>♙</span>Profil</button>
+  <button data-page="about" onclick="showPage('about')"><span>ⓘ</span>À propos</button>
+</nav>
+
+<footer>ATOSH · En développement</footer>
+
+<script>
+function showPage(page){
+  document.querySelectorAll('main section').forEach(function(section){
+    section.hidden = section.id !== page;
+  });
+  document.querySelectorAll('nav button').forEach(function(button){
+    button.classList.toggle('active',button.dataset.page===page);
+  });
+  window.scrollTo(0,0);
+}
+
+function saveProfile(){
+  const name=document.getElementById('username').value.trim();
+  const message=document.getElementById('profileMessage');
+  if(!name){
+    message.textContent='Écris ton prénom ou ton pseudo.';
+    return;
+  }
+  try{
+    localStorage.setItem('atosh_username',name);
+    message.textContent='Profil enregistré sur cet appareil !';
+  }catch(e){
+    message.textContent='Enregistrement indisponible dans ce navigateur.';
+  }
+}
+
+try{
+  document.getElementById('username').value =
+    localStorage.getItem('atosh_username') || '';
+}catch(e){}
+</script>
+</body>
+</html>
