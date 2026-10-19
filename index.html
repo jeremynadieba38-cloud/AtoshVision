@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATOSH - Accueil</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f1f5f3; color: #18352b; }
+    header { background: #103d2e; color: white; padding: 25px 18px; text-align: center; }
+    main { padding: 20px; max-width: 500px; margin: auto; }
+    .carte { background: white; padding: 18px; margin: 12px 0; border-radius: 15px; }
+    button { background: #176b4a; color: white; border: 0; border-radius: 10px; padding: 14px; width: 100%; margin-top: 10px; font-size: 16px; }
+    footer { text-align: center; padding: 20px; color: #64756b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✦ ATOSH</h1>
+    <p>Bienvenue dans ton univers numérique !</p>
+  </header>
+  <main>
+    <div class="carte">
+      <h2>Bonjour 👋</h2>
+      <p>Bienvenue sur la première version de ton application ATOSH.</p>
+    </div>
+    <h2>Mes fonctionnalités</h2>
+    <div class="carte">
+      <h3>👤 Mon profil</h3>
+      <p>Découvre ton espace personnel.</p>
+      <button onclick="ouvrir('Mon profil')">Ouvrir</button>
+    </div>
+    <div class="carte">
+      <h3>💬 Mes messages</h3>
+      <p>Un espace pour les futurs messages.</p>
+      <button onclick="ouvrir('Mes messages')">Ouvrir</button>
+    </div>
+    <div class="carte">
+      <h3>⚙️ Paramètres</h3>
+      <p>Personnalisation de ton application.</p>
+      <button onclick="ouvrir('Paramètres')">Ouvrir</button>
+    </div>
+    <p id="resultat"></p>
+  </main>
+  <footer>ATOSH © 2026</footer>
+  <script>
+    function ouvrir(nom) {
+      document.getElementById('resultat').textContent =
+        'Tu as choisi : ' + nom;
+    }
+  </script>
+</body>
+  </html>
+  
